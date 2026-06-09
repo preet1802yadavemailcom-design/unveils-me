@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import Footer from '@/components/ui/Footer'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -9,19 +9,19 @@ const FAQS = [
   {
     cat: 'Getting started',
     items: [
-      { q:'What is Unveils.me?', a:'Unveils.me is an AI-native digital identity platform. You describe yourself in a few sentences, and our AI (powered by AI + Advanced AI) generates your complete digital identity — tagline, bio, brand colors, AI agents, website, and more — in under 5 seconds.' },
+      { q:'What is Unveils.me?', a:'Unveils.me is an AI-native digital identity platform. You describe yourself in a few sentences, and our AI (powered by AI + Advanced AI) generates your complete digital identity â€” tagline, bio, brand colors, AI agents, website, and more â€” in under 5 seconds.' },
       { q:'Is it really free?', a:'Yes. Our Free plan is completely free, forever. No credit card required to sign up. You get 1 identity, 3 AI agents, 100 AI messages per month, and your own subdomain at yourname.unveils.me.' },
       { q:'How long does it take to set up?', a:'From signing up to having a live profile: under 60 seconds. Type your name, describe yourself in 2-3 sentences, and your identity goes live instantly at yourname.unveils.me.' },
-      { q:'Do I need any design or coding skills?', a:'Absolutely not. That is the entire point. Our AI handles everything — design, copywriting, branding, SEO, and your AI agent team. You just describe yourself in plain language.' },
+      { q:'Do I need any design or coding skills?', a:'Absolutely not. That is the entire point. Our AI handles everything â€” design, copywriting, branding, SEO, and your AI agent team. You just describe yourself in plain language.' },
     ]
   },
   {
     cat: 'AI & Technology',
     items: [
       { q:'What AI models does Unveils.me use?', a:'We use AI-powered inference for ultra-fast responses. For identity generation we use Advanced AI Versatile (~80 tokens/sec). For real-time agent chat we use Realtime AI Instant (~200 tokens/sec). For creative content, Creative AI. Our smart router picks the best model for each task.' },
-      { q:'How fast is the AI?', a:'AI delivers the fastest LLM inference available — typically 80-200 tokens per second. A complete identity generation takes 3-5 seconds. Agent chat responses are nearly instant.' },
-      { q:'What is the Digital Twin?', a:'Over time, your AI agents learn your communication style, preferences, workflows, and goals. Eventually they become capable of drafting emails, responding to enquiries, and creating content that genuinely sounds like you. This is your Digital Twin — an AI that represents you online.' },
-      { q:'Is my data used to train AI models?', a:'No. Your data is never used to train any AI models — ours or third-party providers. Your identity and conversations are private. We take data ownership seriously.' },
+      { q:'How fast is the AI?', a:'AI delivers the fastest LLM inference available â€” typically 80-200 tokens per second. A complete identity generation takes 3-5 seconds. Agent chat responses are nearly instant.' },
+      { q:'What is the Digital Twin?', a:'Over time, your AI agents learn your communication style, preferences, workflows, and goals. Eventually they become capable of drafting emails, responding to enquiries, and creating content that genuinely sounds like you. This is your Digital Twin â€” an AI that represents you online.' },
+      { q:'Is my data used to train AI models?', a:'No. Your data is never used to train any AI models â€” ours or third-party providers. Your identity and conversations are private. We take data ownership seriously.' },
     ]
   },
   {
@@ -29,7 +29,7 @@ const FAQS = [
     items: [
       { q:'What is included in the Pro plan?', a:'Pro (Coming Soonnth, or $15/month billed yearly) includes: 5 digital identities, unlimited AI agents, 5,000 AI messages per month, custom subdomain, AI memory system, analytics dashboard, 1 API key, priority support, and no Unveils.me branding on your profile.' },
       { q:'Can I cancel anytime?', a:'Yes, absolutely. Cancel from your dashboard settings at any time. You keep full access until the end of your current billing period. No penalties, no questions asked.' },
-      { q:'Is there a free trial for Pro?', a:Pro access is currently rolling out through limited beta invitations. You need to add a payment method to start, but you will not be charged until day 15. Cancel any time before that and pay nothing.' },
+      { q:'Is there a free trial for Pro?', a:'Pro access is currently rolling out through limited beta invitations. You need to add a payment method to start, but you will not be charged until day 15. Cancel any time before that and pay nothing.' },
       { q:'Do you offer refunds?', a:"If you're not satisfied within the first 30 days, contact us at official.unveilsme@gmail.com and we'll issue a full refund. After 30 days, we offer pro-rated refunds at our discretion. See our Refund Policy for full details." },
       { q:'Do you support Indian payment methods (UPI, Razorpay)?', a:'Currently we process payments via Stripe (cards, international). Razorpay / UPI support is on our roadmap and coming soon for Indian users.' },
     ]
@@ -40,7 +40,7 @@ const FAQS = [
       { q:"Who can see my profile?", a:'By default, your profile at yourname.unveils.me is public and indexed by search engines. You can make it private or password-protected from your dashboard settings at any time.' },
       { q:'Is my data secure?', a:'Yes. We use end-to-end encryption, zero-trust architecture, Supabase Row Level Security, and Upstash Redis for rate limiting. All data is stored on servers compliant with GDPR and Indian data protection laws.' },
       { q:'Are you GDPR compliant?', a:'Yes. We are fully GDPR compliant. You can export or delete all your data at any time from your account settings. See our GDPR page and Privacy Policy for details.' },
-      { q:'Can I delete my account and all data?', a:'Yes. Go to Settings → Account → Delete Account. This permanently deletes your profile, identity, agent history, and all associated data within 30 days.' },
+      { q:'Can I delete my account and all data?', a:'Yes. Go to Settings â†’ Account â†’ Delete Account. This permanently deletes your profile, identity, agent history, and all associated data within 30 days.' },
     ]
   },
   {
@@ -85,7 +85,7 @@ export default function FAQPage() {
       <style dangerouslySetInnerHTML={{ __html: css }} />
       <nav style={{ borderBottom:'1px solid rgba(255,255,255,.055)', padding:'0 28px', height:60, display:'flex', alignItems:'center', justifyContent:'space-between', position:'sticky', top:0, zIndex:50, background:'rgba(5,5,8,.88)', backdropFilter:'blur(20px)' }}>
         <Link href="/" style={{ display:'flex', alignItems:'center', gap:9 }}>
-          <div style={{ width:28, height:28, borderRadius:8, background:'linear-gradient(135deg,#6c5ff4,#a78bfa)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:13 }}>✦</div>
+          <div style={{ width:28, height:28, borderRadius:8, background:'linear-gradient(135deg,#6c5ff4,#a78bfa)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:13 }}>âœ¦</div>
           <span style={{ fontFamily:"'Syne',sans-serif", fontWeight:700, fontSize:15, letterSpacing:'-.02em' }}>unveils.me</span>
         </Link>
         <div style={{ display:'flex', gap:20, fontSize:14 }}>
@@ -93,7 +93,7 @@ export default function FAQPage() {
             <Link key={l} href={h} style={{ color:'rgba(255,255,255,.45)' }}>{l}</Link>
           ))}
         </div>
-        <Link href="/auth?mode=register" style={{ padding:'9px 20px', background:'#6c5ff4', borderRadius:9999, fontSize:13, fontWeight:500, color:'#fff' }}>Get started →</Link>
+        <Link href="/auth?mode=register" style={{ padding:'9px 20px', background:'#6c5ff4', borderRadius:9999, fontSize:13, fontWeight:500, color:'#fff' }}>Get started â†’</Link>
       </nav>
 
       <div style={{ maxWidth:840, margin:'0 auto', padding:'72px 28px' }}>
@@ -125,14 +125,15 @@ export default function FAQPage() {
 
         {/* Still need help */}
         <div style={{ textAlign:'center', padding:'40px 32px', borderRadius:20, background:'rgba(255,255,255,.02)', border:'1px solid rgba(255,255,255,.055)' }}>
-          <div style={{ fontSize:28, marginBottom:12 }}>💬</div>
+          <div style={{ fontSize:28, marginBottom:12 }}>ðŸ’¬</div>
           <h3 style={{ fontFamily:"'Syne',sans-serif", fontSize:18, fontWeight:700, marginBottom:8 }}>Still have questions?</h3>
           <p style={{ fontSize:14, color:'rgba(255,255,255,.42)', marginBottom:20 }}>Our team replies to every message within 24 hours.</p>
-          <Link href="/contact" style={{ display:'inline-flex', alignItems:'center', gap:8, padding:'12px 24px', background:'#6c5ff4', borderRadius:9999, fontSize:14, fontWeight:500, color:'#fff' }}>Contact support →</Link>
+          <Link href="/contact" style={{ display:'inline-flex', alignItems:'center', gap:8, padding:'12px 24px', background:'#6c5ff4', borderRadius:9999, fontSize:14, fontWeight:500, color:'#fff' }}>Contact support â†’</Link>
         </div>
       </div>
       <Footer />
     </main>
   )
 }
+
 
