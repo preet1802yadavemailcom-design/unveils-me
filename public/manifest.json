@@ -1,0 +1,24 @@
+{
+  "name": "Unveils.me — AI Identity OS",
+  "short_name": "Unveils.me",
+  "description": "The AI-native digital identity platform. Create your intelligent website, AI agents, and digital universe in seconds.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050508",
+  "theme_color": "#6c5ff4",
+  "orientation": "portrait-primary",
+  "categories": ["productivity", "utilities", "social"],
+  "lang": "en",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "screenshots": [
+    { "src": "/screenshot-desktop.png", "sizes": "1280x720", "type": "image/png", "form_factor": "wide", "label": "Dashboard" },
+    { "src": "/screenshot-mobile.png", "sizes": "390x844", "type": "image/png", "form_factor": "narrow", "label": "Identity Generator" }
+  ],
+  "shortcuts": [
+    { "name": "Dashboard", "url": "/dashboard", "description": "Open your dashboard" },
+    { "name": "New Identity", "url": "/dashboard?tab=identity", "description": "Generate a new identity" }
+  ]
+}

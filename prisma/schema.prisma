@@ -1,0 +1,257 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+enum Plan {
+  FREE
+  PRO
+  ENTERPRISE
+}
+
+enum SubStatus {
+  ACTIVE
+  CANCELED
+  PAST_DUE
+  TRIALING
+  INCOMPLETE
+  UNPAID
+}
+
+enum IdentityType {
+  FOUNDER
+  CREATOR
+  STARTUP
+  DEVELOPER
+  DESIGNER
+  ARTIST
+  RESEARCHER
+  EXECUTIVE
+}
+
+enum AgentType {
+  ASSISTANT
+  DESIGNER
+  MARKETER
+  DEVELOPER
+  STRATEGIST
+  RESEARCHER
+  RECRUITER
+  CONTENT
+  GROWTH
+}
+
+enum MessageRole {
+  USER
+  ASSISTANT
+  SYSTEM
+}
+
+enum MemoryType {
+  PREFERENCE
+  GOAL
+  INTERACTION
+  PROJECT
+  INSIGHT
+  STYLE
+}
+model User {
+  id String @id @default(cuid())
+  email String @unique
+  name String
+  username String? @unique
+  avatarUrl String?
+  bio String?
+  plan Plan @default(FREE)
+  planExpiresAt DateTime?
+  stripeCustomerId String? @unique
+  stripeSubscriptionId String? @unique
+  emailVerified Boolean @default(false)
+  onboarded Boolean @default(false)
+  lastActiveAt DateTime?
+  identities Identity[]
+  agentSessions AgentSession[]
+  memories Memory[]
+  websites Website[]
+  analyticsEvents AnalyticsEvent[]
+  subscription Subscription?
+  apiKeys ApiKey[]
+  notifications Notification[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([email])
+  @@index([username])
+}
+
+model Identity {
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subdomain String @unique
+  name String
+  type IdentityType
+  tagline String
+  bio String @db.Text
+  tone String
+  audience String
+  skills String[]
+  websiteHero String
+  ctaText String
+  isPublished Boolean @default(false)
+  viewCount Int @default(0)
+  colorPalette Json
+  brandVoice Json
+  seoMeta Json
+  agents Agent[]
+  websites Website[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([userId])
+  @@index([subdomain])
+}
+
+model Agent {
+  id String @id @default(cuid())
+  identityId String
+  identity Identity @relation(fields: [identityId], references: [id], onDelete: Cascade)
+  name String
+  type AgentType
+  role String
+  emoji String
+  description String @db.Text
+  capabilities String[]
+  systemPrompt String @db.Text
+  model String
+  temperature Float @default(0.75)
+  isActive Boolean @default(true)
+  messageCount Int @default(0)
+  sessions AgentSession[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([identityId])
+}
+
+model AgentSession {
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  agentId String
+  agent Agent @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  title String?
+  summary String? @db.Text
+  messages AgentMessage[]
+  tokenCount Int @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([userId])
+  @@index([agentId])
+}
+
+model AgentMessage {
+  id String @id @default(cuid())
+  sessionId String
+  session AgentSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  role MessageRole
+  content String @db.Text
+  tokens Int @default(0)
+  model String?
+  latencyMs Int?
+  createdAt DateTime @default(now())
+  @@index([sessionId])
+}
+
+model Memory {
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type MemoryType
+  content String @db.Text
+  importance Int @default(1)
+  tags String[]
+  createdAt DateTime @default(now())
+  @@index([userId])
+}
+
+model Website {
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  identityId String
+  identity Identity @relation(fields: [identityId], references: [id], onDelete: Cascade)
+  title String
+  sections Json
+  theme Json
+  html String? @db.Text
+  isPublished Boolean @default(false)
+  publishedAt DateTime?
+  viewCount Int @default(0)
+  customDomain String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([userId])
+}
+
+model Subscription {
+  id String @id @default(cuid())
+  userId String @unique
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stripeSubscriptionId String @unique
+  stripePriceId String
+  stripeCurrentPeriodEnd DateTime
+  plan Plan
+  status SubStatus
+  cancelAtPeriodEnd Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AnalyticsEvent {
+  id String @id @default(cuid())
+  userId String?
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+  event String
+  properties Json?
+  ip String?
+  country String?
+  referrer String?
+  userAgent String?
+  createdAt DateTime @default(now())
+  @@index([userId])
+  @@index([event])
+  @@index([createdAt])
+}
+
+model ApiKey {
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name String
+  keyHash String @unique
+  keyPrefix String
+  scopes String[]
+  usageCount Int @default(0)
+  lastUsed DateTime?
+  isActive Boolean @default(true)
+  expiresAt DateTime?
+  createdAt DateTime @default(now())
+  @@index([userId])
+  @@index([keyHash])
+}
+
+model Notification {
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title String
+  body String
+  type String
+  isRead Boolean @default(false)
+  link String?
+  metadata Json?
+  createdAt DateTime @default(now())
+  @@index([userId])
+  @@index([isRead])
+}
