@@ -34,16 +34,16 @@ if (!result.success) {
     const prompt = historyText ? `${historyText}\n\nUser: ${message}\n\n${agent.name}:` : `User: ${message}\n\n${agent.name}:`
     const systemPrompt = `${agent.systemPrompt}\n\nYou are ${agent.name}, an elite AI agent.\nRole: ${agent.role}\nExpertise: ${agent.capabilities.join(', ')}\n\nBe specific, brilliant, and genuinely helpful. Sound like the world's best ${agent.type}.`
 
-    if (stream) {
+   // if (stream) {
 
-const readable = await AIStream(
-  prompt,
-  systemPrompt,
-  selectModel('chat')
-)
-      return new Response(readable, { headers: { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache', 'X-Accel-Buffering': 'no' } })
-    }
+// const readable = await AIStream(
+//   prompt,
+//   systemPrompt,
+//   selectModel('chat')
+// )
 
+//       return new Response(readable, { headers: { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache', 'X-Accel-Buffering': 'no' } })
+//     }
     const { text, latencyMs } = await AIComplete(prompt, { model: selectModel('chat'), temperature: agent.temperature, maxTokens: 1024, systemPrompt })
     return NextResponse.json({ success: true, data: { reply: text }, metadata: { latency: latencyMs } })
   } catch (err: unknown) {
