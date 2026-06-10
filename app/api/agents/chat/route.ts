@@ -28,7 +28,12 @@ export async function POST(req: NextRequest) {
   const user = await getCurrentUser()
   
   // Ratelimit check
-  const result = await rl.chat.limit(user?.id ?? req.ip ?? 'anonymous')
+const ip =
+  req.headers.get('x-forwarded-for') ??
+  req.headers.get('x-real-ip') ??
+  'anonymous'
+
+const result = await rl.chat.limit(user?.id ?? ip)
 
   if (!result.success) {
     return NextResponse.json(
