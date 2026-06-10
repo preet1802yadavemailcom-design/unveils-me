@@ -174,3 +174,4 @@ CNAME *     cname.vercel-dns.com  ← for subdomains
 > *"This should not even be possible yet."* 🔥
 > Built with Groq · LLaMA 3.3 70B · Next.js 14 · Made in India 🇮🇳
 
+Deployment update
