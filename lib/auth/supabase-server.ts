@@ -1,4 +1,4 @@
-import { createServerClient } from '@supabase/ssr'
+﻿import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import prisma from '@/lib/db/prisma'
 
@@ -11,19 +11,21 @@ export async function createServer() {
     cookies: {
       getAll() { return cookieStore.getAll() },
       setAll(cookiesToSet) {
-        cookiesToSet.forEach(({ name, value, options }) => {
-          cookieStore.set(name, value, options)
-        })
+        cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options))
       },
     },
   })
 }
 
-export async function getCurrentUserServer() {
+export async function getCurrentUser() {
   const supabase = await createServer()
   const { data: { user }, error } = await supabase.auth.getUser()
   if (error || !user) return null
   return user
+}
+
+export async function getCurrentUserServer() {
+  return getCurrentUser()
 }
 
 export async function getDbUser(supabaseId: string) {
@@ -31,8 +33,7 @@ export async function getDbUser(supabaseId: string) {
 }
 
 export async function requireAuth() {
-  const user = await getCurrentUserServer()
+  const user = await getCurrentUser()
   if (!user) throw new Error('UNAUTHORIZED')
   return user
 }
-
