@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // UNVEILS.ME — Groq AI Client
 // Ultra-fast inference engine
 // ============================================
@@ -55,7 +55,7 @@ export const GROQ_MODELS: Record<string, { id: GroqModel; label: string; speed: 
 
 export async function groqComplete(
   userPrompt: string,
-  config: GroqConfig = {}
+  config: Partial<GroqConfig> = {}
 ): Promise<{ text: string; model: string; latencyMs: number }> {
   const client = getGroqClient()
   const start = Date.now()
@@ -92,7 +92,7 @@ export async function groqComplete(
 
 export async function groqStream(
   userPrompt: string,
-  config: GroqConfig = {}
+  config: Partial<GroqConfig> = {}
 ): Promise<ReadableStream<Uint8Array>> {
   const client = getGroqClient()
 
@@ -177,4 +177,5 @@ export function extractJSON<T>(text: string): T | null {
     return null
   }
 }
+
 
