@@ -2,7 +2,6 @@
 import { generateIdentity } from '@/lib/identity/generator'
 import { getCurrentUser } from '@/lib/auth/supabase-server'
 import { rl, makeId, incUsage } from '@/lib/ratelimit'
-import prisma from '@/lib/db/prisma'
 import { z } from 'zod'
 
 export const runtime = 'nodejs'
@@ -18,8 +17,8 @@ export async function POST(req: NextRequest) {
   const user = await getCurrentUser()
   const result = await rl.identity.limit(makeId(req, user?.id))
   if (!result.success) return NextResponse.json({ success: false, error: 'Rate limit exceeded. Upgrade to Pro.' }, { status: 429 })
-
   try {
+    const { default: prisma } = await import('@/lib/db/prisma')
     const body = S.parse(await req.json())
     const taken = await prisma.identity.findUnique({ where: { subdomain: body.subdomain } }).catch(() => null)
     if (taken) return NextResponse.json({ success: false, error: `"${body.subdomain}" is already taken.` }, { status: 409 })

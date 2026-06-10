@@ -1,7 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server'
+﻿import { NextRequest, NextResponse } from 'next/server'
 import { getCurrentUser } from '@/lib/auth/supabase-server'
 import { sendWelcomeEmail } from '@/lib/email/resend'
-import prisma from '@/lib/db/prisma'
 import { z } from 'zod'
 
 const S = z.object({
@@ -16,6 +15,7 @@ export async function POST(req: NextRequest) {
   try {
     const user = await getCurrentUser()
     if (!user) return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 })
+    const { default: prisma } = await import('@/lib/db/prisma')
     const body = S.parse(await req.json())
     const existing = await prisma.identity.findUnique({ where: { subdomain: body.subdomain } })
     if (existing) return NextResponse.json({ success: false, error: 'Subdomain already taken' }, { status: 409 })
@@ -23,10 +23,7 @@ export async function POST(req: NextRequest) {
     sendWelcomeEmail(user.email!, body.name).catch(() => {})
     return NextResponse.json({ success: true })
   } catch (err: unknown) {
-    if (err instanceof z.ZodError)
-      return NextResponse.json({ success: false, error: err.errors[0].message }, { status: 400 })
+    if (err instanceof z.ZodError) return NextResponse.json({ success: false, error: err.errors[0].message }, { status: 400 })
     return NextResponse.json({ success: false, error: err instanceof Error ? err.message : 'Failed' }, { status: 500 })
   }
 }
-
-

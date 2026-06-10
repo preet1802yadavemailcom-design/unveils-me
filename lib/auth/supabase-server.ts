@@ -28,7 +28,7 @@ export async function getCurrentUserServer() {
 }
 
 export async function getDbUser(supabaseId: string) {
-  const { default: prisma } = await import('@/lib/db/prisma') // ✅ lazy import
+  const { default: prisma } = await import('@/lib/db/prisma')
   return prisma.user.findUnique({ where: { id: supabaseId } })
 }
 
