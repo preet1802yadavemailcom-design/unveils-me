@@ -1,4 +1,4 @@
-```ts id="juhm32"
+
 import { NextRequest, NextResponse } from 'next/server'
 import { AIComplete, selectModel } from '@/lib/AI/client'
 import { getCurrentUser } from '@/lib/auth/supabase-server'
@@ -102,4 +102,4 @@ Be specific, brilliant, and genuinely helpful.
     )
   }
 }
-```
+
