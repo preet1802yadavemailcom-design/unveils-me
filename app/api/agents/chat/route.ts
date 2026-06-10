@@ -24,7 +24,7 @@ if (!result.success) {
     { status: 429 }
   )
 }
-  if (!ok) return NextResponse.json({ success: false, error: 'Rate limit exceeded' }, { status: 429 })
+  
 
   try {
     const { agent, message, history, stream } = S.parse(await req.json())
