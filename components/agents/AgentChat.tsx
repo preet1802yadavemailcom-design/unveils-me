@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -17,7 +17,7 @@ const DEMO_AGENTS: AIAgent[] = [
     description: 'Elite business strategist',
     capabilities: ['Strategy', 'Growth', 'Market analysis'],
     systemPrompt: 'You are Nova, an elite business strategist AI agent.',
-    model: 'Advanced AI-3.1-8b-instant',
+    model: 'llama-3.1-8b-instant',
     temperature: 0.75,
     isActive: true,
   },
@@ -30,7 +30,7 @@ const DEMO_AGENTS: AIAgent[] = [
     description: 'World-class designer AI',
     capabilities: ['Design', 'Branding', 'Typography'],
     systemPrompt: 'You are Lens, a world-class design AI agent.',
-    model: 'Advanced AI-3.1-8b-instant',
+    model: 'llama-3.1-8b-instant',
     temperature: 0.8,
     isActive: true,
   },
@@ -43,7 +43,7 @@ const DEMO_AGENTS: AIAgent[] = [
     description: 'Senior engineer AI',
     capabilities: ['Architecture', 'Code review', 'APIs'],
     systemPrompt: 'You are Forge, a senior full-stack engineering AI agent.',
-    model: 'Advanced AI-3.1-8b-instant',
+    model: 'llama-3.1-8b-instant',
     temperature: 0.65,
     isActive: true,
   },
@@ -56,7 +56,7 @@ const DEMO_AGENTS: AIAgent[] = [
     description: 'Growth & marketing AI',
     capabilities: ['Content', 'SEO', 'Campaigns'],
     systemPrompt: 'You are Pulse, an expert marketing and growth AI agent.',
-    model: 'Advanced AI-3.1-8b-instant',
+    model: 'llama-3.1-8b-instant',
     temperature: 0.85,
     isActive: true,
   },
@@ -377,4 +377,5 @@ export default function AgentChat() {
     </div>
   )
 }
+
 
