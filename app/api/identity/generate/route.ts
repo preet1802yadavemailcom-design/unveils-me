@@ -28,7 +28,15 @@ if (!result.success)
     if (user) await incUsage(user.id, 'identityGen')
     const t0       = Date.now()
     const identity = await generateIdentity({ ...body, userId: user?.id ?? 'anonymous' })
-    return NextResponse.json({ success: true, data: identity, metadata: { latency: Date.now() - t0, remaining } })
+   
+return NextResponse.json({
+  success: true,
+  data: identity,
+  metadata: {
+    latency: Date.now() - t0
+  }
+})
+
   } catch (err: unknown) {
     if (err instanceof z.ZodError) return NextResponse.json({ success: false, error: err.errors[0].message }, { status: 400 })
     return NextResponse.json({ success: false, error: err instanceof Error ? err.message : 'Failed' }, { status: 500 })
