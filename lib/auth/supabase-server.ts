@@ -1,6 +1,5 @@
 ﻿import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
-import prisma from '@/lib/db/prisma'
 
 const SUPA_URL  = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const SUPA_ANON = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
@@ -29,6 +28,7 @@ export async function getCurrentUserServer() {
 }
 
 export async function getDbUser(supabaseId: string) {
+  const { default: prisma } = await import('@/lib/db/prisma') // ✅ lazy import
   return prisma.user.findUnique({ where: { id: supabaseId } })
 }
 
@@ -37,4 +37,3 @@ export async function requireAuth() {
   if (!user) throw new Error('UNAUTHORIZED')
   return user
 }
-
