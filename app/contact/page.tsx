@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import Footer from '@/components/ui/Footer'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
@@ -100,7 +100,7 @@ export default function ContactPage() {
                     <div key={id as string}>
                       <label style={{ display:'block', fontSize:11, fontWeight:500, color:'rgba(255,255,255,.4)', marginBottom:5, textTransform:'uppercase', letterSpacing:'.06em' }}>{id as string} {req && '*'}</label>
                       <input type={type as string} placeholder={ph as string} required={req as boolean} value={form[id as keyof typeof form]}
-                        onChange={e => setForm(f => ({ ...f, [id]: e.target.value }))}
+                        onChange={e => setForm(f => ({ ...f, [id as string]: e.target.value }))}
                         style={{ width:'100%', padding:'10px 13px', borderRadius:10, background:'rgba(255,255,255,.05)', border:'1px solid rgba(255,255,255,.09)', color:'#fff', fontSize:13, fontFamily:'inherit', outline:'none' }} />
                     </div>
                   ))}
@@ -135,4 +135,5 @@ export default function ContactPage() {
     </main>
   )
 }
+
 
