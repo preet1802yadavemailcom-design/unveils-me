@@ -1,4 +1,4 @@
-ï»¿'use client'
+'use client'
 
 import { useState, Suspense, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion'
@@ -11,7 +11,7 @@ import toast from 'react-hot-toast'
 function ParticleCanvas() {
   const canvasRef = useRef(null)
   useEffect(() => {
-    const canvas = canvasRef.current
+    const canvas = canvasRef.current as HTMLCanvasElement | null
     if (!canvas) return
     const ctx = canvas.getContext('2d')
     let animId
@@ -116,7 +116,7 @@ function AuthForm() {
       }else{
         const{error}=await sb.auth.signInWithPassword({email,password})
         if(error)throw error
-        toast.success('Welcome back! âš¡')
+        toast.success('Welcome back! ?')
         router.push(redirect);router.refresh()
       }
     }catch(err){
@@ -166,7 +166,7 @@ function AuthForm() {
       <div className="left-side" style={{flex:1,display:'flex',flexDirection:'column',justifyContent:'center',padding:'60px 4% 60px 7%',position:'relative',zIndex:2}}>
         <motion.div initial={{opacity:0,y:-20}} animate={{opacity:1,y:0}} transition={{duration:.6}}
           style={{display:'flex',alignItems:'center',gap:10,marginBottom:60}}>
-          <div style={{width:36,height:36,borderRadius:10,background:'linear-gradient(135deg,#6c5ff4,#a78bfa)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:16,boxShadow:'0 0 24px rgba(108,95,244,.5)'}}>âœ¦</div>
+          <div style={{width:36,height:36,borderRadius:10,background:'linear-gradient(135deg,#6c5ff4,#a78bfa)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:16,boxShadow:'0 0 24px rgba(108,95,244,.5)'}}>?</div>
           <span style={{fontFamily:"'Syne',sans-serif",fontWeight:800,fontSize:18,color:'#fff',letterSpacing:'-.03em'}}>unveils.me</span>
         </motion.div>
 
@@ -197,7 +197,7 @@ function AuthForm() {
 
         <div style={{display:'flex',flexDirection:'column',gap:8,maxWidth:360}}>
           <FeatureCard icon={<Zap size={15}/>}   title="Groq-powered AI"    desc="Identity generation in under 3 seconds" delay={.4}/>
-          <FeatureCard icon={<Globe size={15}/>}  title="Your own subdomain" desc="arjun.unveils.me â€” live instantly" delay={.5}/>
+          <FeatureCard icon={<Globe size={15}/>}  title="Your own subdomain" desc="arjun.unveils.me — live instantly" delay={.5}/>
           <FeatureCard icon={<Shield size={15}/>} title="Privacy by default"  desc="You own your data. Delete anytime." delay={.6}/>
         </div>
 
@@ -216,7 +216,7 @@ function AuthForm() {
         </motion.div>
       </div>
 
-      {/* RIGHT â€” Auth Card */}
+      {/* RIGHT — Auth Card */}
       <div style={{width:'min(480px,100%)',display:'flex',alignItems:'center',justifyContent:'center',padding:'40px 28px',position:'relative',zIndex:2}}>
         <motion.div initial={{opacity:0,y:32,scale:.96}} animate={{opacity:1,y:0,scale:1}} transition={{duration:.7,ease:[.16,1,.3,1]}}
           className="card-float"
@@ -226,7 +226,7 @@ function AuthForm() {
 
           {/* Logo */}
           <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:24,justifyContent:'center'}}>
-            <div style={{width:28,height:28,borderRadius:8,background:'linear-gradient(135deg,#6c5ff4,#a78bfa)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:12,boxShadow:'0 0 16px rgba(108,95,244,.5)'}}>âœ¦</div>
+            <div style={{width:28,height:28,borderRadius:8,background:'linear-gradient(135deg,#6c5ff4,#a78bfa)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:12,boxShadow:'0 0 16px rgba(108,95,244,.5)'}}>?</div>
             <span style={{fontFamily:"'Syne',sans-serif",fontWeight:800,fontSize:15,letterSpacing:'-.03em',color:'#fff'}}>unveils.me</span>
           </div>
 
@@ -246,7 +246,7 @@ function AuthForm() {
           <AnimatePresence mode="wait">
             <motion.div key={mode} initial={{opacity:0,y:8}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-8}} transition={{duration:.22}} style={{marginBottom:20}}>
               <h2 style={{fontFamily:"'Syne',sans-serif",fontSize:20,fontWeight:800,letterSpacing:'-.03em',color:'#fff',marginBottom:3}}>
-                {mode==='login'?'Welcome back âš¡':'Join the future'}
+                {mode==='login'?'Welcome back ?':'Join the future'}
               </h2>
               <p style={{fontSize:12,color:'rgba(255,255,255,.35)'}}>{mode==='login'?'Sign in to your AI identity platform':'Free forever. No credit card needed.'}</p>
             </motion.div>
@@ -311,7 +311,7 @@ function AuthForm() {
               <div style={{position:'relative'}}>
                 <Lock size={13} style={{position:'absolute',left:13,top:'50%',transform:'translateY(-50%)',color:'rgba(255,255,255,.25)',pointerEvents:'none'}}/>
                 <input type={showPw?'text':'password'} value={password} onChange={e=>setPassword(e.target.value)}
-                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" required minLength={8}
+                  placeholder="••••••••" required minLength={8}
                   onFocus={()=>setFocused('password')} onBlur={()=>setFocused(null)}
                   style={{...inp('password'),paddingRight:42}}/>
                 <button type="button" onClick={()=>setShowPw(!showPw)}
@@ -335,7 +335,7 @@ function AuthForm() {
               whileTap={!loading?{scale:.98}:{}}
               style={{width:'100%',padding:'13px',borderRadius:12,fontSize:14,fontWeight:600,cursor:loading?'not-allowed':'pointer',fontFamily:'inherit',border:'none',color:'#fff',marginTop:2,background:loading?'rgba(108,95,244,.5)':'linear-gradient(135deg,#6c5ff4 0%,#8b7cf8 50%,#6c5ff4 100%)',display:'flex',alignItems:'center',justifyContent:'center',gap:8,transition:'all .2s',opacity:loading?.7:1,boxShadow:'0 0 28px rgba(108,95,244,.35)'}}>
               {loading?(
-                <><div style={{width:13,height:13,borderRadius:'50%',border:'2px solid rgba(255,255,255,.3)',borderTopColor:'#fff',animation:'spin .7s linear infinite'}}/>Please waitâ€¦</>
+                <><div style={{width:13,height:13,borderRadius:'50%',border:'2px solid rgba(255,255,255,.3)',borderTopColor:'#fff',animation:'spin .7s linear infinite'}}/>Please wait…</>
               ):(
                 <>{mode==='login'?'Sign in':'Create free account'}<ArrowRight size={14}/></>
               )}
@@ -346,7 +346,7 @@ function AuthForm() {
             {mode==='login'?"Don't have an account? ":"Already have an account? "}
             <button onClick={()=>{setMode(mode==='login'?'register':'login');setError(null)}}
               style={{background:'none',border:'none',cursor:'pointer',color:'#a29afb',fontSize:12,fontFamily:'inherit',fontWeight:500}}>
-              {mode==='login'?'Sign up free â†’':'Sign in â†’'}
+              {mode==='login'?'Sign up free ?':'Sign in ?'}
             </button>
           </p>
         </motion.div>
@@ -358,3 +358,4 @@ function AuthForm() {
 export default function AuthPage() {
   return <Suspense><AuthForm/></Suspense>
 }
+
