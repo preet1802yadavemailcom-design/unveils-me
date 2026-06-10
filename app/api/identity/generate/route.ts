@@ -20,8 +20,7 @@ const result = await rl.identity.limit(makeId(req, user?.id))
 
 if (!result.success)
 
-  if (!ok) return NextResponse.json({ success: false, error: 'Rate limit exceeded. Upgrade to Pro.' }, { status: 429 })
-
+ 
   try {
     const body  = S.parse(await req.json())
     const taken = await prisma.identity.findUnique({ where: { subdomain: body.subdomain } }).catch(() => null)
