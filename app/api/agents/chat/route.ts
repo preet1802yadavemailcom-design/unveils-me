@@ -44,8 +44,15 @@ if (!result.success) {
 
 //       return new Response(readable, { headers: { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache', 'X-Accel-Buffering': 'no' } })
 //     }
-    const { text, latencyMs } = await AIComplete(prompt, { model: selectModel('chat'), temperature: agent.temperature, maxTokens: 1024, systemPrompt })
-    return NextResponse.json({ success: true, data: { reply: text }, metadata: { latency: latencyMs } })
+    
+const text = await AIComplete(
+  prompt,
+  systemPrompt,
+  selectModel('chat')
+)
+
+const latencyMs = 0
+   return NextResponse.json({ success: true, data: { reply: text }, metadata: { latency: latencyMs } })
   } catch (err: unknown) {
     return NextResponse.json({ success: false, error: err instanceof Error ? err.message : 'Failed' }, { status: 500 })
   }
