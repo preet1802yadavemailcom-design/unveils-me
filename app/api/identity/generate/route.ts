@@ -16,7 +16,10 @@ const S = z.object({
 
 export async function POST(req: NextRequest) {
   const user = await getCurrentUser()
-  const { ok, remaining } = await rl.identity.limit(makeId(req, user?.id))
+const result = await rl.identity.limit(makeId(req, user?.id))
+
+if (!result.success)
+
   if (!ok) return NextResponse.json({ success: false, error: 'Rate limit exceeded. Upgrade to Pro.' }, { status: 429 })
 
   try {
