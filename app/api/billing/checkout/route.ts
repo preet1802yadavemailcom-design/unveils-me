@@ -1,11 +1,14 @@
 // ============================================
 // POST /api/billing/checkout
 // ============================================
+
 import { NextRequest, NextResponse } from 'next/server'
 import { createCheckout } from '@/lib/billing/stripe'
 import { getCurrentUser } from '@/lib/auth/supabase-server'
 import { z } from 'zod'
 
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 const S = z.object({ planId: z.enum(['PRO','ENTERPRISE']), interval: z.enum(['monthly','yearly']) })
 
 export async function POST(req: NextRequest) {
