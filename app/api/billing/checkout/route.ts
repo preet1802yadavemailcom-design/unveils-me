@@ -1,5 +1,5 @@
+// app/api/billing/portal/route.ts
 import { NextRequest, NextResponse } from 'next/server'
-import { createCheckout } from '@/lib/billing/stripe'
 import { getCurrentUser } from '@/lib/auth/supabase-server'
 import { z } from 'zod'
 
@@ -14,7 +14,6 @@ const S = z.object({
 export async function POST(req: NextRequest) {
   try {
     const user = await getCurrentUser()
-
     if (!user) {
       return NextResponse.json(
         { success: false, error: 'Unauthorized' },
@@ -23,10 +22,10 @@ export async function POST(req: NextRequest) {
     }
 
     const { planId, interval } = S.parse(await req.json())
+    const origin = req.headers.get('origin') ?? process.env.NEXT_PUBLIC_APP_URL!
 
-    const origin =
-      req.headers.get('origin') ??
-      process.env.NEXT_PUBLIC_APP_URL!
+    // ✅ Dynamic import — Prisma build time pe execute nahi hoga
+    const { createCheckout } = await import('@/lib/billing/stripe')
 
     const url = await createCheckout({
       userId: user.id,
@@ -36,16 +35,10 @@ export async function POST(req: NextRequest) {
       origin,
     })
 
-    return NextResponse.json({
-      success: true,
-      data: { url },
-    })
+    return NextResponse.json({ success: true, data: { url } })
   } catch (err: unknown) {
     return NextResponse.json(
-      {
-        success: false,
-        error: err instanceof Error ? err.message : 'Failed',
-      },
+      { success: false, error: err instanceof Error ? err.message : 'Failed' },
       { status: 500 }
     )
   }
