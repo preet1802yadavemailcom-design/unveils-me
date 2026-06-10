@@ -16,7 +16,14 @@ const S = z.object({
 
 export async function POST(req: NextRequest) {
   const user = await getCurrentUser()
-  const { ok } = await rl.chat.limit(makeId(req, user?.id))
+  const result = await rl.chat.limit(makeId(req, user?.id))
+
+if (!result.success) {
+  return NextResponse.json(
+    { success: false, error: 'Rate limit exceeded' },
+    { status: 429 }
+  )
+}
   if (!ok) return NextResponse.json({ success: false, error: 'Rate limit exceeded' }, { status: 429 })
 
   try {
