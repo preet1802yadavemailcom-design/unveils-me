@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "unveils-me",
   "version": "2.0.0",
   "description": "AI Identity Operating System â€” World No.1 SaaS",
@@ -43,7 +43,11 @@
     "jose": "^5.6.3",
     "lucide-react": "^0.378.0",
     "nanoid": "^5.0.7",
-    "engines": {"node": ">=20.0.0"},`n    "next": "^15.5.19",
+"engines": {
+  "node": ">=20.0.0"
+},
+"next":    
+ "^15.5.19",
     "next-themes": "^0.3.0",
     "nuqs": "^2.8.9",
     "prisma": "^5.14.0",
