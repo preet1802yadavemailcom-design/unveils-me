@@ -5,8 +5,8 @@
   "framework": "nextjs",
   "regions": ["bom1"],
   "env": {
-    "NEXT_PUBLIC_APP_URL": "@next_public_app_url",
-    "NEXT_PUBLIC_APP_DOMAIN": "@next_public_app_domain",
+    "NEXT_PUBLIC_APP_URL": "https://unveils.me",
+     "NEXT_PUBLIC_APP_DOMAIN": "unveils.me",
     "GROQ_API_KEY": "@groq_api_key",
     "NEXT_PUBLIC_SUPABASE_URL": "@next_public_supabase_url",
     "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@next_public_supabase_anon_key",
