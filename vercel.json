@@ -1,12 +1,4 @@
 ﻿{
   "buildCommand": "npx prisma generate && next build",
-  "framework": "nextjs",
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
-      ]
-    }
-  ]
+  "framework": "nextjs"
 }
