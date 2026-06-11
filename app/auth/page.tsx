@@ -8,7 +8,7 @@ import { createBrowser } from '@/lib/auth/supabase'
 import toast from 'react-hot-toast'
 
 function ParticleCanvas() {
-  const canvasRef = useRef(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
@@ -260,3 +260,4 @@ function AuthForm() {
 export default function AuthPage() {
   return <Suspense><AuthForm/></Suspense>
 }
+
