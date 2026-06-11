@@ -24,10 +24,11 @@ export async function POST(req: NextRequest) {
     if (taken) return NextResponse.json({ success: false, error: `"${body.subdomain}" is already taken.` }, { status: 409 })
     if (user) await incUsage(user.id, 'identityGen')
     const t0 = Date.now()
-    const identity = await generateIdentity({ ...body, userId: user?.id ?? 'anonymous' })
+    const identity = await generateIdentity({ name: body.name, type: body.type, description: body.description, subdomain: body.subdomain, userId: user?.id ?? "anonymous" })
     return NextResponse.json({ success: true, data: identity, metadata: { latency: Date.now() - t0 } })
   } catch (err: unknown) {
     if (err instanceof z.ZodError) return NextResponse.json({ success: false, error: err.errors[0].message }, { status: 400 })
     return NextResponse.json({ success: false, error: err instanceof Error ? err.message : 'Failed' }, { status: 500 })
   }
 }
+
