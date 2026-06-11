@@ -1,7 +1,12 @@
-{
-"buildCommand": "next build",
-"devCommand": "next dev",
-"installCommand": "npm install",
-"framework": "nextjs",
-"regions": ["bom1"]
+﻿{
+  "buildCommand": "npx prisma generate && next build",
+  "framework": "nextjs",
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+      ]
+    }
+  ]
 }
