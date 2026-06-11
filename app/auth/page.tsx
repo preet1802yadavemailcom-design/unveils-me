@@ -12,12 +12,13 @@ function ParticleCanvas() {
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
-    const ctx = canvas.getContext('2d'); if (!ctx) return
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
     let animId: number
     const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight }
     resize()
-    window.addEventListener('resize', resize)
-    const colors = ['#6c5ff4','#a29afb','#38bdf8','#818cf8','#c4b5fd']
+    window.addEventListener("resize", resize)
+    const colors = ["#6c5ff4","#a29afb","#38bdf8","#818cf8","#c4b5fd"]
     const particles = Array.from({length:80}, () => ({
       x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight,
       vx: (Math.random()-.5)*.4, vy: (Math.random()-.5)*.4,
@@ -25,6 +26,7 @@ function ParticleCanvas() {
       color: colors[Math.floor(Math.random()*colors.length)]
     }))
     function draw() {
+      if (!ctx) return
       ctx.clearRect(0,0,canvas.width,canvas.height)
       particles.forEach(p => {
         p.x+=p.vx; p.y+=p.vy
@@ -37,9 +39,10 @@ function ParticleCanvas() {
       animId=requestAnimationFrame(draw)
     }
     draw()
-    return ()=>{cancelAnimationFrame(animId);window.removeEventListener('resize',resize)}
+    return ()=>{cancelAnimationFrame(animId);window.removeEventListener("resize",resize)}
   },[])
-  return <canvas ref={canvasRef} style={{position:'fixed',inset:0,zIndex:0,pointerEvents:'none'}}/>
+  return <canvas ref={canvasRef} style={{position:"fixed",inset:0,zIndex:0,pointerEvents:"none"}}/>
+}
 }
 
 function MouseGlow() {
@@ -260,6 +263,7 @@ function AuthForm() {
 export default function AuthPage() {
   return <Suspense><AuthForm/></Suspense>
 }
+
 
 
 
