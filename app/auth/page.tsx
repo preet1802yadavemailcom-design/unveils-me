@@ -13,7 +13,7 @@ function MouseGlow() {
   const x=useMotionValue(0),y=useMotionValue(0)
   const sx=useSpring(x,{stiffness:80,damping:20}),sy=useSpring(y,{stiffness:80,damping:20})
   useEffect(()=>{
-    const move=(e)=>{x.set(e.clientX);y.set(e.clientY)}
+    const move=(e: MouseEvent)=>{x.set(e.clientX);y.set(e.clientY)}
     window.addEventListener('mousemove',move)
     return()=>window.removeEventListener('mousemove',move)
   },[x,y])
@@ -227,6 +227,7 @@ function AuthForm() {
 export default function AuthPage() {
   return <Suspense><AuthForm/></Suspense>
 }
+
 
 
 
