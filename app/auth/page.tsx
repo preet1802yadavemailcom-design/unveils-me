@@ -13,7 +13,7 @@ function ParticleCanvas() {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
-    let animId
+    let animId: number
     const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight }
     resize()
     window.addEventListener('resize', resize)
@@ -260,4 +260,5 @@ function AuthForm() {
 export default function AuthPage() {
   return <Suspense><AuthForm/></Suspense>
 }
+
 
