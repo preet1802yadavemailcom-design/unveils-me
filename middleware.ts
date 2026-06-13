@@ -23,6 +23,8 @@ export async function middleware(request: NextRequest) {
 
   // ✅ FIXED: Properly detect subdomains without treating 'www' as a subdomain
   let subdomain: string | null = null
+  
+  // Check if it's NOT the root domain and NOT www.root
   if (host !== root && host !== `www.${root}`) {
     const extracted = host.replace(`.${root}`, '')
     // Only treat as subdomain if it's a valid custom subdomain (not www, app, or multi-level)
@@ -30,6 +32,7 @@ export async function middleware(request: NextRequest) {
       subdomain = extracted
     }
   }
+  
   // Also check for dev mode: ?sub=arjun
   if (!subdomain) {
     subdomain = url.searchParams.get('sub')
