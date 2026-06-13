@@ -229,7 +229,7 @@ function AuthForm() {
             </div>
             {mode==='register'&&(<p style={{fontSize:11,color:'rgba(255,255,255,.28)',lineHeight:1.6}}>By registering you agree to our <Link href="/legal/terms" style={{color:'#a29afb',textDecoration:'none'}}>Terms</Link> &amp; <Link href="/legal/privacy" style={{color:'#a29afb',textDecoration:'none'}}>Privacy Policy</Link>.</p>)}
             <motion.button type="submit" disabled={loading || !sb} whileHover={!loading && sb?{scale:1.02,boxShadow:'0 0 40px rgba(108,95,244,.6)'}:{}} whileTap={!loading && sb?{scale:.98}:{}} style={{width:'100%',padding:'13px',borderRadius:12,fontSize:14,fontWeight:600,cursor:loading || !sb?'not-allowed':'pointer',fontFamily:'inherit',border:'none',color:'#fff',marginTop:2,background:loading || !sb?'rgba(108,95,244,.5)':'linear-gradient(135deg,#6c5ff4 0%,#8b7cf8 50%,#6c5ff4 100%)',display:'flex',alignItems:'center',justifyContent:'center',gap:8,transition:'all .2s',opacity:loading||!sb?.7:1,boxShadow:'0 0 28px rgba(108,95,244,.35)'}}>
-              {loading?(<><div style={{width:13,height:13,borderRadius:'50%',border:'2px solid rgba(255,255,255,.3)',borderTopColor:'#fff',animation:'spin .7s linear infinite'}}/><span>Please wait…</span></>):(  <><{mode==='login'?'Sign in':'Create free account'}<ArrowRight size={14}/></> )}
+              {loading?(<><div style={{width:13,height:13,borderRadius:'50%',border:'2px solid rgba(255,255,255,.3)',borderTopColor:'#fff',animation:'spin .7s linear infinite'}}/><span>Please wait…</span></>):(<>{mode==='login'?'Sign in':'Create free account'}<ArrowRight size={14}/></>)}
             </motion.button>
           </form>
           <p style={{textAlign:'center',fontSize:12,color:'rgba(255,255,255,.28)',marginTop:18}}>
