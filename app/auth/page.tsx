@@ -225,9 +225,10 @@ function AuthForm() {
 }
 
 export default function AuthPage() {
-  return <Suspense><AuthForm/></Suspense>
+  return <Suspense fallback={<div style={{minHeight:'100vh',background:'#03030a'}}/>}>
+    <AuthForm/>
+  </Suspense>
 }
-
 
 
 
