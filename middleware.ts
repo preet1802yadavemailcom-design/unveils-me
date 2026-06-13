@@ -21,11 +21,21 @@ export async function middleware(request: NextRequest) {
   const isLocal = host.includes('localhost')
   const root    = isLocal ? `localhost:${url.port || 3000}` : DOMAIN
 
-  const subdomain = host !== root && host !== `www.${root}`
-    ? host.replace(`.${root}`, '')
-    : url.searchParams.get('sub') ?? null // dev: ?sub=arjun
+  // ✅ FIXED: Properly detect subdomains without treating 'www' as a subdomain
+  let subdomain: string | null = null
+  if (host !== root && host !== `www.${root}`) {
+    const extracted = host.replace(`.${root}`, '')
+    // Only treat as subdomain if it's a valid custom subdomain (not www, app, or multi-level)
+    if (extracted && extracted !== 'www' && extracted !== 'app' && !extracted.includes('.')) {
+      subdomain = extracted
+    }
+  }
+  // Also check for dev mode: ?sub=arjun
+  if (!subdomain) {
+    subdomain = url.searchParams.get('sub')
+  }
 
-  if (subdomain && subdomain !== 'www' && subdomain !== 'app' && !subdomain.includes('.')) {
+  if (subdomain) {
     url.pathname = `/u/${subdomain}${url.pathname === '/' ? '' : url.pathname}`
     const res = NextResponse.rewrite(url)
     addSecurityHeaders(res)
@@ -72,4 +82,3 @@ function addSecurityHeaders(res: NextResponse) {
 export const config = {
   matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.(?:png|svg|jpg|ico|webp)$).*)'],
 }
-

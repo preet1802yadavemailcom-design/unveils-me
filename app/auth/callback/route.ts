@@ -5,6 +5,8 @@ import { NextResponse } from 'next/server'
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url)
   const code = requestUrl.searchParams.get('code')
+  // ✅ FIXED: Capture redirect param from OAuth callback
+  const redirect = requestUrl.searchParams.get('redirect') ?? '/dashboard'
 
   if (code) {
     const cookieStore = await cookies()
@@ -24,8 +26,15 @@ export async function GET(request: Request) {
         },
       }
     )
-    await supabase.auth.exchangeCodeForSession(code)
+    const { error } = await supabase.auth.exchangeCodeForSession(code)
+    
+    if (error) {
+      console.error('❌ Auth callback error:', error.message)
+      // On error, redirect to auth page with error message
+      return NextResponse.redirect(new URL(`/auth?error=${encodeURIComponent(error.message)}`, request.url))
+    }
   }
 
-  return NextResponse.redirect(new URL('/dashboard', request.url))
+  // ✅ FIXED: Respect the redirect param instead of hardcoding /dashboard
+  return NextResponse.redirect(new URL(redirect, request.url))
 }
